@@ -19,7 +19,7 @@ bash -c "true $(printf '<<EOF %.0s' {1..79})" 2>/dev/null
 if [ $? != 0 ]; then
 	echo -e "\e[91mVulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
 else
-	echo -e "\e[92mVulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
+	echo -e "\e[92mNot vulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
 fi
 
 (for x in {1..200} ; do echo "for x$x in ; do :"; done; for x in {1..200} ; do echo done ; done) > test-script.sh
