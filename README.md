@@ -48,9 +48,10 @@ Off-by-one error in nested loops.
 * http://seclists.org/oss-sec/2014/q3/712
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7187
 
-Unknown
-=======
+CVE-2014-6277
+=============
 
 Not yet published parser bug by Michal Zalewski (lcamtuf).
 
 * http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
+* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6277
