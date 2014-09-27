@@ -22,8 +22,7 @@ else
 	echo -e "\e[92mNot vulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
 fi
 
-(for x in {1..200} ; do echo "for x$x in ; do :"; done; for x in {1..200} ; do echo done ; done) > test-script.sh
-bash test-script.sh
+bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1..200}; do echo -n "done;";done`" 2>/dev/null
 if [ $? != 0 ]; then
 	echo -e "\e[91mVulnerable to CVE-2014-7187 (nessted loops off by one)\e[39m"
 else
