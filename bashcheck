@@ -2,36 +2,36 @@
 
 r=`x="() { :; }; echo x" bash -c ""`
 if [ -n "$r" ]; then
-	echo -e '\e[91mVulnerable to CVE-2014-6271 (original shellshock)\e[39m'
+	echo -e 'Vulnerable to CVE-2014-6271 (original shellshock)'
 else
-	echo -e '\e[92mNot vulnerable to CVE-2014-6271 (original shellshock)\e[39m'
+	echo -e 'Not vulnerable to CVE-2014-6271 (original shellshock)'
 fi
 
 cd /tmp;rm echo 2>/dev/null
 X='() { function a a>\' bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
-	echo -e "\e[91mVulnerable to CVE-2014-7169 (taviso bug)\e[39m"
+	echo -e "Vulnerable to CVE-2014-7169 (taviso bug)"
 else
-	echo -e "\e[92mNot vulnerable to CVE-2014-7169 (taviso bug)\e[39m"
+	echo -e "Not vulnerable to CVE-2014-7169 (taviso bug)"
 fi
 
 bash -c "true $(printf '<<EOF %.0s' {1..79})" 2>/dev/null
 if [ $? != 0 ]; then
-	echo -e "\e[91mVulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
+	echo -e "Vulnerable to CVE-2014-7186 (redir_stack bug)"
 else
-	echo -e "\e[92mNot vulnerable to CVE-2014-7186 (redir_stack bug)\e[39m"
+	echo -e "Not vulnerable to CVE-2014-7186 (redir_stack bug)"
 fi
 
 bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1..200}; do echo -n "done;";done`" 2>/dev/null
 if [ $? != 0 ]; then
-	echo -e "\e[91mVulnerable to CVE-2014-7187 (nessted loops off by one)\e[39m"
+	echo -e "Vulnerable to CVE-2014-7187 (nessted loops off by one)"
 else
-	echo -e "\e[96mTest for CVE-2014-7187 not reliable without address sanitizer\e[39m"
+	echo -e "Test for CVE-2014-7187 not reliable without address sanitizer"
 fi
 
 r=`a="() { echo x;}" bash -c a 2>/dev/null`
 if [ -n "$r" ]; then
-	echo -e "\e[93mVariable function parser still active, likely vulnerable to yet unknown parser bugs like CVE-2014-6277 (lcamtuf bug)\e[39m"
+	echo -e "Variable function parser still active, likely vulnerable to yet unknown parser bugs like CVE-2014-6277 (lcamtuf bug)"
 else
-	echo -e "\e[92mVariable function parser inactive, likely safe from unknown parser bugs\e[39m"
+	echo -e "Variable function parser inactive, likely safe from unknown parser bugs"
 fi
