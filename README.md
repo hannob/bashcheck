@@ -7,8 +7,8 @@ background
 ==========
 
 The Bash vulnerability that is now known as shellshock had an incomplete
-fix at first. There are currently 4 public and one supposedly non-public
-vulnerability.
+fix at first. There are currently [4 public and supposedly a few non-public
+vulnerabilities](https://en.wikipedia.org/wiki/Shellshock_(software_bug)#Reported_vulnerabilities).
 
 usage
 =====
