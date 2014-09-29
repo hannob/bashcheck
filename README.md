@@ -55,3 +55,11 @@ Not yet published parser bug by Michal Zalewski (lcamtuf).
 
 * http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6277
+
+CVE-2014-6278
+=============
+
+Another not yet published parser bug by Michal Zalewski (lcamtuf).
+
+* http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
+* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6278
