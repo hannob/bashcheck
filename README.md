@@ -7,8 +7,8 @@ background
 ==========
 
 The Bash vulnerability that is now known as Shellshock had an incomplete
-fix at first. There are currently 4 public and one supposedly non-public
-vulnerability.
+fix at first. There are currently [4 public and supposedly a few non-public
+vulnerabilities](https://en.wikipedia.org/wiki/Shellshock_(software_bug)#Reported_vulnerabilities).
 
 usage
 =====
@@ -55,11 +55,3 @@ Not yet published parser bug by Michal Zalewski (lcamtuf).
 
 * http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6277
-
-CVE-2014-6278
-=============
-
-Another not yet published parser bug by Michal Zalewski (lcamtuf).
-
-* http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
-* https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6278
