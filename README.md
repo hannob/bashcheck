@@ -1,12 +1,12 @@
 bashcheck
 =========
 
-test script for shellshocker and related vulnerabilities
+Test script for Shellshock and related vulnerabilities
 
 background
 ==========
 
-The Bash vulnerability that is now known as shellshock had an incomplete
+The Bash vulnerability that is now known as Shellshock had an incomplete
 fix at first. There are currently 4 public and one supposedly non-public
 vulnerability.
 
@@ -14,7 +14,7 @@ usage
 =====
 
 Just run script:
- ./bashcheck
+ `./bashcheck`
 
 CVE-2014-6271
 =============
@@ -26,7 +26,7 @@ The original vulnerability.
 CVE-2014-7169
 =============
 
-Further parser error, found by Tavis Ormandy (taviso)
+Further parser error, found by Tavis Ormandy (taviso).
 
 * https://twitter.com/taviso/status/514887394294652929
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-7169
