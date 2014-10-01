@@ -7,7 +7,7 @@ echo $($bash --version | head -n 1)
 echo -e "\033[39m"
 
 
-r=`x="() { :; }; echo x" $bash -c "" 2>/dev/null`
+r=`env x="() { :; }; echo x" $bash -c "" 2>/dev/null`
 if [ -n "$r" ]; then
 	echo -e '\033[91mVulnerable to CVE-2014-6271 (original shellshock)\033[39m'
 else
@@ -15,7 +15,7 @@ else
 fi
 
 cd /tmp;rm echo 2>/dev/null
-X='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
+env x='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
 	echo -e "\033[91mVulnerable to CVE-2014-7169 (taviso bug)\033[39m"
 else
