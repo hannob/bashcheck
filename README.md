@@ -51,15 +51,29 @@ Off-by-one error in nested loops.
 CVE-2014-6277
 =============
 
-Not yet published parser bug by Michal Zalewski (lcamtuf).
+Uninitialized Memory use in make_redirect(), found by
+Michal Zalewski (lcamtuf).
 
-* http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
+* http://lcamtuf.blogspot.de/2014/10/bash-bug-how-we-finally-cracked.html
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6277
 
 CVE-2014-6278
 =============
 
-Another not yet published parser bug by Michal Zalewski (lcamtuf).
+Another parser bug, analysis still incomplete, also found
+by Michal Zalewski (lcamtuf).
 
-* http://lcamtuf.blogspot.de/2014/09/bash-bug-apply-unofficial-patch-now.html
+* http://lcamtuf.blogspot.de/2014/10/bash-bug-how-we-finally-cracked.html
 * https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-6278
+
+Patch recommendation
+====================
+
+Latest upstream patches (4.3 patchlevel 028, 4.2 patchleven 051) now
+include all fixes except for the latest lcamtuf issue.
+
+They also add prefixing to variable functions (a variant of Florian
+Weimer's patch) and thus although two known (and some possibly unknown)
+parser bugs are still unfixed they should not be exploitable.
+
+My current recommendation: Use latest upstream patches.
