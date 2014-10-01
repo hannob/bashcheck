@@ -22,12 +22,15 @@ else
 	echo -e "\033[92mNot vulnerable to CVE-2014-7169 (taviso bug)\033[39m"
 fi
 
-$bash -c "true $(printf '<<EOF %.0s' {1..16})" 2>/dev/null
-if [ $? != 0 ]; then
+out=$($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>1)
+ret=$?
+echo "$out"|grep -q AddressSanitizer
+if [ $? == 0 ] || [ $ret == 139 ]; then
 	echo -e "\033[91mVulnerable to CVE-2014-7186 (redir_stack bug)\033[39m"
 else
 	echo -e "\033[92mNot vulnerable to CVE-2014-7186 (redir_stack bug)\033[39m"
 fi
+
 
 $bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1..200}; do echo -n "done;";done`" 2>/dev/null
 if [ $? != 0 ]; then
