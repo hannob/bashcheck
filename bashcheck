@@ -7,7 +7,7 @@ echo $($bash --version | head -n 1)
 echo -e "\033[39m"
 
 
-r=`x="() { :; }; echo x" $bash -c ""`
+r=`x="() { :; }; echo x" $bash -c "" 2>/dev/null`
 if [ -n "$r" ]; then
 	echo -e '\033[91mVulnerable to CVE-2014-6271 (original shellshock)\033[39m'
 else
