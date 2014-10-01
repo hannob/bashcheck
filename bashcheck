@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo -e "\033[96mTesting $(which bash) ..."
+echo $(bash --version | head -n 1)
+echo -e "\033[39m"
+
 r=`x="() { :; }; echo x" bash -c ""`
 if [ -n "$r" ]; then
 	echo -e '\033[91mVulnerable to CVE-2014-6271 (original shellshock)\033[39m'
