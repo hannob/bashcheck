@@ -15,7 +15,7 @@ else
 fi
 
 cd /tmp;rm echo 2>/dev/null
-X='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
+env X='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
 	echo -e "\033[91mVulnerable to CVE-2014-7169 (taviso bug)\033[39m"
 else
