@@ -39,9 +39,12 @@ else
 	echo -e "\033[96mTest for CVE-2014-7187 not reliable without address sanitizer\033[39m"
 fi
 
-$($bash -c "f(){ x(){ _;};x(){ _;}<<a;}" 2>/dev/null)
-if [ $? != 0 ]; then
-	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [no patch]\033[39m"
+if ! $(env x='() { x() { _; }; x() { _; } <<a; }' $bash -c :); then
+	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [no prefix/suffix]\033[39m"
+elif ! $(env BASH_FUNC_x%%='() { x() { _; }; x() { _; } <<a; }' $bash -c : 2>/dev/null); then
+	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [prefix/%%-suffix]\033[39m"
+elif ! $(env 'BASH_FUNC_x()'='() { x() { _; }; x() { _; } <<a; }' $bash -c : 2>/dev/null); then
+	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [prefix/()-suffix]\033[39m"
 else
 	echo -e "\033[92mNot vulnerable to CVE-2014-6277 (lcamtuf bug #1)\033[39m"
 fi
