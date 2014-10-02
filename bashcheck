@@ -40,21 +40,13 @@ else
 fi
 
 if ! $(env x='() { x() { _; }; x() { _; } <<a; }' $bash -c :); then
-	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [no prefix/suffix]\033[39m"
-elif ! $(env BASH_FUNC_x%%='() { x() { _; }; x() { _; } <<a; }' $bash -c : 2>/dev/null); then
-	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [prefix/%%-suffix]\033[39m"
-elif ! $(env 'BASH_FUNC_x()'='() { x() { _; }; x() { _; } <<a; }' $bash -c : 2>/dev/null); then
-	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1) [prefix/()-suffix]\033[39m"
+	echo -e "\033[91mVulnerable to CVE-2014-6277 (lcamtuf bug #1)\033[39m"
 else
 	echo -e "\033[92mNot vulnerable to CVE-2014-6277 (lcamtuf bug #1)\033[39m"
 fi
 
 if [ -n "$(env x='() { _;}>_[$($())] { echo x;}' $bash -c : 2>/dev/null)" ]; then
-	echo -e "\033[91mVulnerable to CVE-2014-6278 (lcamtuf bug #2) [no prefix/suffix]\033[39m"
-elif [ -n "$(env BASH_FUNC_x%%='() { _;}>_[$($())] { echo x;}' $bash -c : 2>/dev/null)" ]; then
-	echo -e "\033[91mVulnerable to CVE-2014-6278 (lcamtuf bug #2) [prefix/%%-suffix]\033[39m"
-elif [ -n "$(env 'BASH_FUNC_x()'='() { _;}>_[$($())] { echo x;}' $bash -c : 2>/dev/null)" ]; then
-	echo -e "\033[91mVulnerable to CVE-2014-6278 (lcamtuf bug #2) [prefix/()-suffix]\033[39m"
+	echo -e "\033[91mVulnerable to CVE-2014-6278 (lcamtuf bug #2)\033[39m"
 else
 	echo -e "\033[92mNot vulnerable to CVE-2014-6278 (lcamtuf bug #2)\033[39m"
 fi
