@@ -4,7 +4,7 @@ warn() {
 	if [ "$scary" == "1" ]; then
 		echo -e "\033[91mVulnerable to $1\033[39m"
 	else
-		echo -e "\033[93mFound non-explitable $1\033[39m"
+		echo -e "\033[93mFound non-exploitable $1\033[39m"
 	fi
 }
 
