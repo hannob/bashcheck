@@ -7,8 +7,25 @@ background
 ==========
 
 The Bash vulnerability that is now known as Shellshock had an incomplete
-fix at first. There are currently 4 public and one supposedly non-public
-vulnerability.
+fix at first. There are currently 6 public vulnerabilities.
+
+interpreting results
+====================
+
+There's been some confusion how to interpret the results of this script
+and some people got scared by warnings on systems that didn't have any
+explitable bugs.
+
+The most important fix you need is one of the prefix/suffix-patches. Upstream
+patch number for this is bash042-050 and bash043-027 (patches for older
+versions also available). This patch was originally created by RedHat
+developer Florian Weimer and a modified version was applied by Bash
+developer Chet Ramey.
+
+Once you have this prefix patch all other vulnerabilities are not exploitable.
+They are still bugs that should be fixed, but there is nothing to worry
+about.
+
 
 usage
 =====
