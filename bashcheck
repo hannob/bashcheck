@@ -22,16 +22,16 @@ if [ -n "$(env 'a'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
 	echo -e "\033[91mVariable function parser active, maybe vulnerable to unknown parser bugs\033[39m"
 	scary=1
 elif [ -n "$(env 'BASH_FUNC_a%%'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [%%, upstream], bugs not explitable\033[39m"
+	echo -e "\033[92mVariable function parser pre/suffixed [%%, upstream], bugs not exploitable\033[39m"
 	scary=0
 elif [ -n "$(env 'BASH_FUNC_a()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [(), redhat], bugs not explitable\033[39m"
+	echo -e "\033[92mVariable function parser pre/suffixed [(), redhat], bugs not exploitable\033[39m"
 	scary=0
 elif [ -n "$(env 'BASH_FUNC_<a>%%'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [<..>%%, apple], bugs not explitable\033[39m"
+	echo -e "\033[92mVariable function parser pre/suffixed [<..>%%, apple], bugs not exploitable\033[39m"
 	scary=0
 else
-	echo -e "\033[92mVariable function parser inactive, bugs not explitable\033[39m"
+	echo -e "\033[92mVariable function parser inactive, bugs not exploitable\033[39m"
 	scary=0
 fi
 
