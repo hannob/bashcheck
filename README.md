@@ -9,6 +9,13 @@ background
 The Bash vulnerability that is now known as Shellshock had an incomplete
 fix at first. There are currently 6 public vulnerabilities.
 
+shellshock and heartbleed
+=========================
+
+I wrote down some general thoughts about recent events and security
+in free software:
+* https://blog.hboeck.de/archives/857-How-to-stop-Bleeding-Hearts-and-Shocking-Shells.html
+
 interpreting results
 ====================
 
