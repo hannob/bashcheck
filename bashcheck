@@ -12,6 +12,8 @@ good() {
 	echo -e "\033[92mNot vulnerable to $1\033[39m"
 }
 
+tmpdir=`mktemp -d`
+
 [ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
 echo -e "\033[95mTesting $bash ..."
 echo $($bash --version | head -n 1)
@@ -43,7 +45,7 @@ else
 	good "CVE-2014-6271 (original shellshock)"
 fi
 
-cd /tmp;rm echo 2>/dev/null
+cd $tmpdir
 env x='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
 	warn "CVE-2014-7169 (taviso bug)"
@@ -51,9 +53,9 @@ else
 	good "CVE-2014-7169 (taviso bug)"
 fi
 
-$($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>/tmp/bashcheck.tmp)
+$($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>$tmpdir/bashcheck.tmp)
 ret=$?
-grep -q AddressSanitizer /tmp/bashcheck.tmp
+grep -q AddressSanitizer $tmpdir/bashcheck.tmp
 if [ $? == 0 ] || [ $ret == 139 ]; then
 	warn "CVE-2014-7186 (redir_stack bug)"
 else
@@ -85,4 +87,4 @@ else
 	good "CVE-2014-6278 (lcamtuf bug #2)"
 fi
 
-
+rm -rf $tmpdir
