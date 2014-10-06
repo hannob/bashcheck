@@ -52,6 +52,7 @@ if [ -e echo ]; then
 else
 	good "CVE-2014-7169 (taviso bug)"
 fi
+rm /tmp/echo
 
 $($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>$tmpdir/bashcheck.tmp)
 ret=$?
@@ -61,6 +62,7 @@ if [ $? == 0 ] || [ $ret == 139 ]; then
 else
 	good "CVE-2014-7186 (redir_stack bug)"
 fi
+rm /tmp/bashcheck.tmp
 
 
 $bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1..200}; do echo -n "done;";done`" 2>/dev/null
