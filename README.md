@@ -86,11 +86,11 @@ by Michal Zalewski (lcamtuf).
 Patch recommendation
 ====================
 
-Latest upstream patches (4.3 patchlevel 028, 4.2 patchleven 051) now
-include all fixes except for the latest lcamtuf issue.
+Latest upstream patches (4.3 since patchlevel 030, 4.2 since patchleven 051)
+include all fixes.
 
 They also add prefixing to variable functions (a variant of Florian
-Weimer's patch) and thus although two known (and some possibly unknown)
-parser bugs are still unfixed they should not be exploitable.
+Weimer's patch). This protects from further function parser bugs and makes
+them likely not exploitable.
 
 My current recommendation: Use latest upstream patches.
