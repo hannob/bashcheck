@@ -12,7 +12,7 @@ good() {
 	echo -e "\033[92mNot vulnerable to $1\033[39m"
 }
 
-tmpdir=`mktemp -d /tmp/tmp.XXXXXX`
+tmpdir=`mktemp -d -t tmp.XXXXXXXX`
 
 [ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
 echo -e "\033[95mTesting $bash ..."
