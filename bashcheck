@@ -1,7 +1,7 @@
 #!/bin/bash
 
 warn() {
-	if [ "$scary" == "1" ]; then
+	if [ "$scary" = "1" ]; then
 		echo -e "\033[91mVulnerable to $1\033[39m"
 	else
 		echo -e "\033[93mFound non-exploitable $1\033[39m"
@@ -56,7 +56,7 @@ fi
 $($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>$tmpdir/bashcheck.tmp)
 ret=$?
 grep -q AddressSanitizer $tmpdir/bashcheck.tmp
-if [ $? == 0 ] || [ $ret == 139 ]; then
+if [ $? = 0 ] || [ $ret = 139 ]; then
 	warn "CVE-2014-7186 (redir_stack bug)"
 else
 	good "CVE-2014-7186 (redir_stack bug)"
