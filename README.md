@@ -93,7 +93,7 @@ by Michal Zalewski (lcamtuf).
 Patch recommendation
 ====================
 
-Latest upstream patches (4.3 since patchlevel 030, 4.2 since patchleven 051)
+Latest upstream patches (4.3 since patchlevel 030, 4.2 since patchlevel 051)
 include all fixes.
 
 They also add prefixing to variable functions (a variant of Florian
