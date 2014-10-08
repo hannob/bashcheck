@@ -45,6 +45,12 @@ else
 	good "CVE-2014-6271 (original shellshock)"
 fi
 
+r=`env X=' () { }; echo hello' $bash -c 'date' 2>/dev/null`
+case $r in
+(*hello*) warn "shellshocker#3 (unknown CVE)" ;;
+(*) good "shellshocker#3 (unknown CVE)" ;;
+esac
+
 cd $tmpdir
 env x='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
