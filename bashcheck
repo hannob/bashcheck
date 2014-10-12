@@ -16,7 +16,7 @@ tmpdir=`mktemp -d -t tmp.XXXXXXXX`
 
 [ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
 echo -e "\033[95mTesting $bash ..."
-echo $($bash --version | head -n 1)
+echo Bash version $BASH_VERSION
 echo -e "\033[39m"
 
 #r=`a="() { echo x;}" $bash -c a 2>/dev/null`
