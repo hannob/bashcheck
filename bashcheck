@@ -55,7 +55,7 @@ fi
 
 $($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>$tmpdir/bashcheck.tmp)
 ret=$?
-grep -q AddressSanitizer $tmpdir/bashcheck.tmp
+grep AddressSanitizer $tmpdir/bashcheck.tmp > /dev/null
 if [ $? == 0 ] || [ $ret == 139 ]; then
 	warn "CVE-2014-7186 (redir_stack bug)"
 else
