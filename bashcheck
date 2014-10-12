@@ -45,13 +45,14 @@ else
 	good "CVE-2014-6271 (original shellshock)"
 fi
 
-cd $tmpdir
+pushd $tmpdir > /dev/null
 env x='() { function a a>\' $bash -c echo 2>/dev/null > /dev/null
 if [ -e echo ]; then
 	warn "CVE-2014-7169 (taviso bug)"
 else
 	good "CVE-2014-7169 (taviso bug)"
 fi
+popd > /dev/null
 
 $($bash -c "true $(printf '<<EOF %.0s' {1..80})" 2>$tmpdir/bashcheck.tmp)
 ret=$?
