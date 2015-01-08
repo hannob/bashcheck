@@ -1,23 +1,38 @@
 #!/bin/bash
 
+while getopts "c" Option
+do
+    case $Option in
+        c ) TURNCOLOUROFF=1
+    esac
+done
+
+colourprint() {
+    # $1 is a colour code, $2 is the actual information.
+    if [ $TURNCOLOUROFF ]; then
+        echo "$2"
+    else
+        echo -e "$1$2\033[39m"
+    fi
+}
+
 warn() {
 	if [ "$scary" == "1" ]; then
-		echo -e "\033[91mVulnerable to $1\033[39m"
+        colourprint '\033[91m' "Vulnerable to $1"
 	else
-		echo -e "\033[93mFound non-exploitable $1\033[39m"
+        colourprint '\033[93m' "Found non-exploitable $1"
 	fi
 }
 
 good() {
-	echo -e "\033[92mNot vulnerable to $1\033[39m"
+    colourprint '\033[92m' "Not vulnerable to $1"
 }
 
 tmpdir=`mktemp -d -t tmp.XXXXXXXX`
 
-[ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
-echo -e "\033[95mTesting $bash ..."
-$bash -c 'echo "Bash version $BASH_VERSION"'
-echo -e "\033[39m"
+[ -n "$1" ] && [ "$1" != '-c' ] && bash=$(which $1) || bash=$(which bash)
+colourprint '\033[95m' "Testing $bash ..."
+colourprint '\033[95m' `$bash --version`
 
 #r=`a="() { echo x;}" $bash -c a 2>/dev/null`
 if [ -n "$(env 'a'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
@@ -89,3 +104,4 @@ else
 fi
 
 rm -rf $tmpdir
+unset TURNCOLOUROFF
