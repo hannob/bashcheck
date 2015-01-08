@@ -1,39 +1,59 @@
 #!/bin/bash
 
+while getopts "c" Option
+do
+    case $Option in
+        c ) TURNCOLOUROFF=1
+    esac
+done
+
+colourprint() {
+    # $1 is a colour code, $2 is the actual information.
+    if [ $TURNCOLOUROFF ]; then
+        echo "$2"
+    else
+        echo -e "$1$2\033[39m"
+    fi
+}
+
 warn() {
 	if [ "$scary" == "1" ]; then
-		echo -e "\033[91mVulnerable to $1\033[39m"
+        colourprint '\033[91m' "Vulnerable to $1"
 	else
-		echo -e "\033[93mFound non-exploitable $1\033[39m"
+        colourprint '\033[93m' "Found non-exploitable $1"
 	fi
 }
 
 good() {
-	echo -e "\033[92mNot vulnerable to $1\033[39m"
+    colourprint '\033[92m' "Not vulnerable to $1"
 }
 
 tmpdir=`mktemp -d -t tmp.XXXXXXXX`
 
-[ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
-echo -e "\033[95mTesting $bash ..."
-$bash -c 'echo "Bash version $BASH_VERSION"'
-echo -e "\033[39m"
+[ -n "$1" ] && [ "$1" != '-c' ] && bash=$(which $1) || bash=$(which bash)
+colourprint '\033[95m' "Testing $bash ..."
+if [ $TURNCOLOUROFF ]; then
+    $bash -c 'echo "Bash version $BASH_VERSION"'
+else
+    $bash -c 'echo -e "\033[95mBash version $BASH_VERSION\033[39m"'
+fi
+echo
 
 #r=`a="() { echo x;}" $bash -c a 2>/dev/null`
 if [ -n "$(env 'a'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[91mVariable function parser active, maybe vulnerable to unknown parser bugs\033[39m"
+	colourprint '\033[91m' "Variable function parser active, maybe vulnerable to unknown parser bugs"
 	scary=1
 elif [ -n "$(env 'BASH_FUNC_a%%'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [%%, upstream], bugs not exploitable\033[39m"
+	colourprint '\033[92m' "Variable function parser pre/suffixed [%%, upstream], bugs not exploitable"
 	scary=0
 elif [ -n "$(env 'BASH_FUNC_a()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [(), redhat], bugs not exploitable\033[39m"
+	colourprint '\033[92m' "Variable function parser pre/suffixed [(), redhat], bugs not exploitable"
 	scary=0
 elif [ -n "$(env '__BASH_FUNC<a>()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [__BASH_FUNC<..>(), apple], bugs not exploitable\033[39m"
+	colourprint '\033[92m' "Variable function parser pre/suffixed [__BASH_FUNC<..>(), apple], bugs not exploitable"
 	scary=0
 else
-	echo -e "\033[92mVariable function parser inactive, bugs not exploitable\033[39m"
+	colourprint '\033[92m' "Variable function parser inactive, bugs not exploitable"
 	scary=0
 fi
 
@@ -68,7 +88,7 @@ $bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1.
 if [ $? != 0 ]; then
 	warn "CVE-2014-7187 (nested loops off by one)"
 else
-	echo -e "\033[96mTest for CVE-2014-7187 not reliable without address sanitizer\033[39m"
+	colourprint '\033[96m' "Test for CVE-2014-7187 not reliable without address sanitizer"
 fi
 
 $($bash -c "f(){ x(){ _;};x(){ _;}<<a;}" 2>/dev/null)
@@ -89,3 +109,4 @@ else
 fi
 
 rm -rf $tmpdir
+unset TURNCOLOUROFF
