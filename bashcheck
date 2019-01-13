@@ -47,7 +47,7 @@ if [ -n "$(env 'a'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
 	echo -e "${color_FAIL}Variable function parser active, maybe vulnerable to unknown parser bugs${color_NORM}"
 	scary=1
 elif [ -n "$(env 'BASH_FUNC_a%%'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "${color_LightGreen}mVariable function parser pre/suffixed [%%, upstream], bugs not exploitable${color_NORM}"
+	echo -e "${color_LightGreen}Variable function parser pre/suffixed [%%, upstream], bugs not exploitable${color_NORM}"
 	scary=0
 elif [ -n "$(env 'BASH_FUNC_a()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
 	echo -e "${color_LightGreen}Variable function parser pre/suffixed [(), redhat], bugs not exploitable${color_NORM}"
