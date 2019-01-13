@@ -1,39 +1,62 @@
 #!/bin/bash
 
+
+color_FAIL="\033[91m"
+color_NORM="\033[39m"
+color_LightYellow="\033[93m"
+color_LightGreen="\033[92m"
+color_LightMagenta="\033[95m"
+color_LightCyan="\033[96m"
+
+while :; do
+    case $1 in
+        -n|--nocolor)
+	unset color_FAIL
+	unset color_NORM
+	unset color_LightYellow
+	unset color_LightGreen
+	unset color_LightMagenta
+	unset color_LightCyan
+        ;;
+        *) break
+    esac
+    shift
+done
+
 warn() {
 	if [ "$scary" == "1" ]; then
-		echo -e "\033[91mVulnerable to $1\033[39m"
+		echo -e "${color_FAIL}Vulnerable to $1${color_NORM}"
 	else
-		echo -e "\033[93mFound non-exploitable $1\033[39m"
+		echo -e "${color_LightYellow}Found non-exploitable $1${color_NORM}"
 	fi
 }
 
 good() {
-	echo -e "\033[92mNot vulnerable to $1\033[39m"
+	echo -e "${color_LightGreen}Not vulnerable to $1${color_NORM}"
 }
 
 tmpdir=`mktemp -d -t tmp.XXXXXXXX`
 
 [ -n "$1" ] && bash=$(which $1) || bash=$(which bash)
-echo -e "\033[95mTesting $bash ..."
+echo -e "${color_LightMagenta}Testing $bash ..."
 $bash -c 'echo "Bash version $BASH_VERSION"'
-echo -e "\033[39m"
+echo -e "${color_NORM}"
 
 #r=`a="() { echo x;}" $bash -c a 2>/dev/null`
 if [ -n "$(env 'a'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[91mVariable function parser active, maybe vulnerable to unknown parser bugs\033[39m"
+	echo -e "${color_FAIL}Variable function parser active, maybe vulnerable to unknown parser bugs${color_NORM}"
 	scary=1
 elif [ -n "$(env 'BASH_FUNC_a%%'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [%%, upstream], bugs not exploitable\033[39m"
+	echo -e "${color_LightGreen}Variable function parser pre/suffixed [%%, upstream], bugs not exploitable${color_NORM}"
 	scary=0
 elif [ -n "$(env 'BASH_FUNC_a()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [(), redhat], bugs not exploitable\033[39m"
+	echo -e "${color_LightGreen}Variable function parser pre/suffixed [(), redhat], bugs not exploitable${color_NORM}"
 	scary=0
 elif [ -n "$(env '__BASH_FUNC<a>()'="() { echo x;}" $bash -c a 2>/dev/null)" ]; then
-	echo -e "\033[92mVariable function parser pre/suffixed [__BASH_FUNC<..>(), apple], bugs not exploitable\033[39m"
+	echo -e "${color_LightGreen}Variable function parser pre/suffixed [__BASH_FUNC<..>(), apple], bugs not exploitable${color_NORM}"
 	scary=0
 else
-	echo -e "\033[92mVariable function parser inactive, bugs not exploitable\033[39m"
+	echo -e "${color_LightGreen}Variable function parser inactive, bugs not exploitable${color_NORM}"
 	scary=0
 fi
 
@@ -68,7 +91,7 @@ $bash -c "`for i in {1..200}; do echo -n "for x$i in; do :;"; done; for i in {1.
 if [ $? != 0 ]; then
 	warn "CVE-2014-7187 (nested loops off by one)"
 else
-	echo -e "\033[96mTest for CVE-2014-7187 not reliable without address sanitizer\033[39m"
+	echo -e "${color_LightCyan}Test for CVE-2014-7187 not reliable without address sanitizer${color_NORM}"
 fi
 
 $($bash -c "f(){ x(){ _;};x(){ _;}<<a;}" 2>/dev/null)
